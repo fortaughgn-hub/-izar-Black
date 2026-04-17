@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-nvidia: #76b900;
+  --color-bg-dark: #0a0a0a;
+  --color-surface-dark: #1a1a1a;
+  --color-border-dim: #333333;
+  --color-text-main: #e0e0e0;
+  --color-text-dim: #999999;
+  --color-accent-blue: #00aff0;
+}
+
+@keyframes progress {
+  from { width: 0; }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    overflow: hidden;
+  }
+}

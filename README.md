@@ -1,11 +1,39 @@
-<div align="center">
+# NVIDIA ADAS Training Pro - 模拟培训系统
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+这是一个为您定制的 **NVIDIA 智能驾驶标注培训模拟器**。它旨在帮助标注人员在纯英文环境下熟悉工作流程，并通过交互式点击学习专业词汇。
 
-  <h1>Built with AI Studio</h2>
+## 🚀 本地运行步骤 (Local Setup)
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+下载本项目代码后，请确保您的电脑已安装 [Node.js](https://nodejs.org/)。
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+1. **解压文件**：将 ZIP 包解压到您的本地文件夹。
+2. **安装依赖**：
+   打开终端或命令行（CMD/PowerShell），进入该文件夹并运行：
+   ```bash
+   npm install
+   ```
+3. **启动应用**：
+   运行以下命令开启开发环境：
+   ```bash
+   npm run dev
+   ```
+4. **访问网页**：
+   命令运行后，终端会显示一个地址（通常是 `http://localhost:3000`），在浏览器打开即可。
 
-</div>
+## 🛠️ 打包部署 (Deployment)
+
+如果您想将其部署到自己的服务器上：
+```bash
+npm run build
+```
+这会生成一个 `dist` 文件夹，您可以将该文件夹内的内容上传到任何静态网页托管平台（如 Vercel, Netlify, 或您的企业服务器）。
+
+## 💡 功能亮点
+
+- **全英文界面**：模拟真实的国际化标注工作环境。
+- **点击翻译**：点击任何不认识的专业词汇，即刻切换显示中文对照。
+- **专业词库**：右上角“Glossary”包含完整的 ADAS 词汇对照表。
+- **工业级设计**：采用 NVIDIA 风格的高密度、高保真 UI。
+
+---
+*本项目由 Google AI Studio 构建生成。*
