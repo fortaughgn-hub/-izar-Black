@@ -319,78 +319,68 @@ export default function App() {
               initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
               className="relative w-full max-w-4xl bg-surface-dark rounded border border-border-dim shadow-2xl flex flex-col max-h-[85vh]"
             >
-              <div className="flex items-center justify-between p-6 border-b border-border-dim">
-                <div className="flex items-center gap-3">
-                  <Languages className="h-6 w-6 text-nvidia" />
-                  <h2 className="text-xl font-bold tracking-tight">
-                    <ToggleText en="ADAS Annotation Glossary" cn="ADAS 标注术语全集" />
-                  </h2>
+              {/* Header */}
+              <div className="flex items-center justify-between p-6 border-b border-border-dim bg-black/40">
+                <div className="flex items-center gap-4">
+                  <div className="bg-nvidia/20 p-2 rounded-lg border border-nvidia/30 shadow-[0_0_15px_rgba(118,185,0,0.15)]">
+                    <Languages className="h-6 w-6 text-nvidia" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                       ADAS <span className="text-nvidia">Glossary</span> Table
+                    </h2>
+                    <p className="text-[10px] text-text-dim uppercase tracking-widest font-bold">
+                       Standardized English-Chinese Comparison Reference
+                    </p>
+                  </div>
                 </div>
-                <button onClick={() => setShowGlossary(false)} className="p-2 hover:bg-white/5 rounded-full transition-all ring-1 ring-border-dim">
-                  <ChevronRight className="rotate-45 h-5 w-5" />
+                <button 
+                  onClick={() => setShowGlossary(false)} 
+                  className="p-2 hover:bg-red-500/20 hover:text-red-500 rounded-md transition-all border border-border-dim/50 group"
+                  title="Close Modal"
+                >
+                  <Box className="h-5 w-5 rotate-45 group-hover:scale-110 transition-transform" />
                 </button>
               </div>
-              <div className="flex-1 overflow-y-auto p-0 scrollbar-thin scrollbar-thumb-nvidia/20">
-                <div className="flex flex-col">
+
+              {/* Table Body Area */}
+              <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-nvidia/20 bg-black/20">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border-dim/30">
                   {Object.entries(ADAS_LABELS).map(([category, items]) => (
-                    <div key={category} className="border-b border-border-dim last:border-b-0 group/section">
-                      {/* Section Header */}
-                      <div className="bg-white/5 px-6 py-2 border-b border-border-dim/50 flex items-center justify-between sticky top-0 z-10 backdrop-blur-md">
-                        <h3 className="text-[10px] font-bold uppercase text-nvidia tracking-[0.2em] flex items-center gap-2">
-                          <Layers className="h-3 w-3 opacity-50" />
-                          {(() => {
-                            const config: Record<string, {en: string, cn: string}> = {
-                              workflow_ui: { en: "Workflow & UI", cn: "基础工作界面" },
-                              technical_tools: { en: "Technical Hardware & Tools", cn: "技术硬件与工具" },
-                              objects: { en: "Label Objects", cn: "目标物分类" },
-                              attributes: { en: "Properties", cn: "属性配置" },
-                              error_types: { en: "Quality Control & Errors", cn: "质量控制与报错" },
-                              infrastructure: { en: "Infrastructure", cn: "道路基础设施" },
-                              states: { en: "Movement States", cn: "动态行驶状态" },
-                              environment: { en: "Environment", cn: "环境场景" },
-                              workflow_status: { en: "Project Status", cn: "项目任务状态" }
-                            };
-                            const match = config[category] || { en: category, cn: "分类词库" };
-                            return <ToggleText en={match.en} cn={match.cn} />;
-                          })()}
-                        </h3>
-                        <span className="text-[8px] text-text-dim/40 font-mono">Reference Section: {category}</span>
-                      </div>
-
-                      {/* Table Header */}
-                      <div className="grid grid-cols-2 bg-black/40 border-b border-border-dim/20 px-6 py-1.5 overflow-hidden">
-                        <div className="text-[9px] font-bold text-text-dim uppercase tracking-widest flex items-center gap-1.5">
-                           <span className="w-1.5 h-1.5 rounded-full bg-nvidia/20" />
-                           English Term (英文术语)
+                    <div key={category} className="bg-surface-dark flex flex-col">
+                      <div className="bg-nvidia/5 px-6 py-3 border-b border-border-dim flex items-center justify-between sticky top-0 z-10 backdrop-blur-md">
+                        <div className="flex items-center gap-2">
+                          <Layers className="h-3 w-3 text-nvidia" />
+                          <h3 className="text-[11px] font-black uppercase text-nvidia tracking-wider">
+                            {(() => {
+                              const config: Record<string, {en: string, cn: string}> = {
+                                workflow_ui: { en: "Workflow & UI", cn: "基础工作界面" },
+                                technical_tools: { en: "Tech Hardware", cn: "技术硬件工具" },
+                                objects: { en: "Label Objects", cn: "目标物分类" },
+                                attributes: { en: "Properties", cn: "属性配置" },
+                                error_types: { en: "QC & Errors", cn: "质量控制报错" },
+                                infrastructure: { en: "Infrastructure", cn: "道路基础设施" },
+                                states: { en: "Movement", cn: "动态行驶状态" },
+                                environment: { en: "Environment", cn: "环境场景" },
+                                workflow_status: { en: "Status", cn: "项目任务状态" }
+                              };
+                              const match = config[category] || { en: category, cn: "词库" };
+                              return `${match.en} (${match.cn})`;
+                            })()}
+                          </h3>
                         </div>
-                        <div className="text-[9px] font-bold text-text-dim uppercase tracking-widest flex items-center gap-1.5">
-                           <span className="w-1.5 h-1.5 rounded-full bg-blue-500/20" />
-                           Chinese Translation (中文对照)
-                        </div>
+                        <CheckCircle2 className="h-3 w-3 text-nvidia/30" />
                       </div>
-
-                      {/* Table Body */}
-                      <div className="divide-y divide-border-dim/10">
+                      
+                      <div className="divide-y divide-border-dim/20">
                         {items.map((item, idx) => (
-                          <div 
-                            key={idx} 
-                            className="group grid grid-cols-2 hover:bg-white/[0.02] transition-all px-6 py-3 items-center group/row border-l-2 border-transparent hover:border-nvidia"
-                          >
-                             <div className="text-sm font-bold text-white group-hover/row:text-nvidia transition-colors flex items-center gap-3">
-                                <span className="text-[10px] text-text-dim font-mono w-4 opacity-30">{(idx + 1).toString().padStart(2, '0')}</span>
-                                <ToggleText en={item.en} cn="[点击查看中文]" className="hover:underline decoration-nvidia/40 underline-offset-4" />
-                             </div>
-                             <div className="text-[11px] text-text-dim flex items-center justify-between gap-4">
-                                <div className="flex-1">
-                                  <ToggleText en="Click for translation" cn={item.cn} className="font-sans italic text-blue-400 group-hover/row:text-nvidia transition-colors" />
-                                </div>
-                                <div className="hidden group-hover/row:flex items-center gap-2">
-                                   <div className="h-1 w-8 bg-border-dim/50 rounded-full overflow-hidden">
-                                      <div className="h-full bg-nvidia animate-[progress_1s_ease-out]" style={{ width: `${Math.random() * 60 + 40}%` }} />
-                                   </div>
-                                   <span className="text-[8px] font-mono text-nvidia/40 uppercase">V-REF</span>
-                                </div>
-                             </div>
+                          <div key={idx} className="grid grid-cols-2 group hover:bg-nvidia/5 transition-all px-6 py-2.5 items-center">
+                            <span className="text-sm font-bold text-white group-hover:text-nvidia transition-colors">
+                              {item.en}
+                            </span>
+                            <span className="text-sm font-medium text-text-dim group-hover:text-white transition-colors border-l border-border-dim/30 pl-4 py-0.5">
+                              {item.cn}
+                            </span>
                           </div>
                         ))}
                       </div>
