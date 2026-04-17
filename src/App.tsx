@@ -33,7 +33,11 @@ const ToggleText = ({ en, cn, className, block }: { en: string; cn: string; clas
   const [showCn, setShowCn] = useState(false);
   return (
     <span 
-      onClick={(e) => { e.stopPropagation(); setShowCn(!showCn); }}
+      onClick={(e) => { 
+        // Allow the event to bubble up so parent buttons still work, 
+        // but still toggle the translation.
+        setShowCn(!showCn); 
+      }}
       className={`cursor-help select-none transition-all ${showCn ? 'text-nvidia' : ''} ${block ? 'block' : ''} ${className}`}
       title="Click to translate | 点击翻译"
     >
@@ -313,7 +317,7 @@ export default function App() {
         {showGlossary && (
           <motion.div 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-8"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-8"
           >
             <motion.div 
               initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
